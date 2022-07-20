@@ -7,7 +7,7 @@
 #include "system.h"
 class Controller
 {
-private:
+protected:
     float motor_revision;
     float deviation;
     virtual int8 calc();

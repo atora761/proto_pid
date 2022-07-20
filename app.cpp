@@ -12,6 +12,7 @@
 #include "etroboc_ext.h"
 #include "workspace/include/Controller.h"
 #include "workspace/include/PIDControl.h"
+#include "workspace/include/system.h"
 #if defined(BUILD_MODULE)
 #include "module_cfg.h"
 #else
@@ -55,9 +56,14 @@ void start_task(intptr_t unused)
 /* メインタスク */
 void main_task(intptr_t unused)
 {
+    GAIN gain;
+    gain.p=10;
+    gain.i=1;
+    gain.d=1;
+    PIDControl pidcontrol = PIDControl::getInstance();
+    pidcontrol.init(gain);
+    float a=pidcontrol.run(10.7);
     while(1){
-        PIDControl pidcontrol;
-        pidcontrol.run(10.7);
     }
     ext_tsk();
 }
